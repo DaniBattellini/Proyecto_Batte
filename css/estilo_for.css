@@ -1,0 +1,55 @@
+
+.bodyformulario {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.año-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 20px;
+}
+
+.año {
+  width: 300px;
+  min-height: 400px;
+  margin: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.primerAño {
+  background-color: rgb(167, 233, 80);
+}
+
+.segundoAño {
+  background-color: rgb(255, 223, 186);
+}
+
+.tercerAño {
+  background-color: rgb(80, 90, 233);
+}
+
+.año h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.materia {
+  background-color: rgba(255, 255, 255, 0.7);
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+
+
+
+
+

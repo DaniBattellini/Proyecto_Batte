@@ -1,0 +1,2 @@
+Bedel: DNI 12345678, clave 12345678
+Alumno: DNI 49894867, clave 49894867

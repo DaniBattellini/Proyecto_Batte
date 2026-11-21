@@ -1,0 +1,48 @@
+Resumen de modificaciones del proyecto
+Archivos nuevos creados
+get_inscripciones_alumno.php
+ Nuevo endpoint que devuelve en formato JSON las materias ya inscriptas del alumno que tiene sesión activa. Lo usan los formularios de inscripción para pre-marcar materias.
+
+listado_materia2TSoft.php
+ Reemplaza al antiguo 
+listado_materia2TSoft.html
+. Ahora es un archivo PHP que verifica la sesión del alumno, consulta sus inscripciones previas al cargar y las pre-marca automáticamente en el formulario (con un badge verde "✔ Ya inscripto"). Si el alumno ya tiene materias inscriptas, el botón de descarga de PDF queda habilitado desde el inicio y aparece un botón adicional para re-descargar el PDF. Usa radios para las opciones de cursado.
+
+listado_materia2TGest.php
+ Igual que el anterior pero para la Tecnicatura en Gestión. Usa selects en lugar de radios. También pre-marca materias previas, muestra el badge verde y habilita la re-descarga de PDF.
+
+fix_encoding.php
+ (temporal — para eliminar) Script de uso único para corregir el problema de caracteres especiales (tildes) en los nombres de carrera guardados en la base de datos. Agrandó las columnas a VARCHAR(150) y actualizó los valores corruptos con los nombres correctos en UTF-8.
+
+Archivos modificados
+inicio_alumno.php
+
+Los botones de inscripción ahora apuntan a los nuevos 
+.php
+ en lugar de los 
+.html
+.
+Se agrega una consulta a la base de datos para obtener la carrera del alumno logueado y mostrar solo el botón de inscripción de su tecnicatura (Software o Gestión). Si no se detecta la carrera, muestra ambos como fallback.
+listado_alumno.php
+
+Se agregó un buscador en tiempo real que filtra por nombre, apellido, DNI y CUIL.
+Se agregó un filtro desplegable por carrera.
+Se agregó un botón Limpiar y un contador de resultados visibles.
+Se mantuvieron todos los botones de acción (Ver Inscripciones, Editar, Borrar).
+listado_InscriptosA.php
+
+Se agregó buscador en tiempo real que filtra por nombre, apellido, DNI, CUIL y materia.
+Se agregaron filtros desplegables por carrera y por condición de cursado (Presencial, Semipresencial, Libre).
+Se agregó botón Limpiar y contador de resultados.
+Se agregaron badges de colores en la columna Condición (azul, amarillo, gris).
+Se filtraron las opciones vacías del dropdown de carrera.
+listado_NoInscripMat.php
+
+Se agregó buscador en tiempo real por nombre, apellido, DNI y CUIL.
+Se agregó filtro desplegable por carrera.
+Se agregó botón Limpiar y contador de resultados.
+Se filtraron las opciones vacías del dropdown de carrera.
+Corrección de encoding en base de datos
+Se detectó que el nombre "Gestión" aparecía como "Gesti¾n" debido a un problema de codificación en la tabla carrera y en el campo carrera de la tabla alumnos. Se corrigió mediante el script 
+fix_encoding.php
+ que agrandó las columnas y reescribió los valores con UTF-8 correcto.

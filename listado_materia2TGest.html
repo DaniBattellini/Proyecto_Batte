@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Inscripción al Cursado - Tecnicatura en Desarrollo de Software</title>
+
+    <style>
+        :root {
+            --accent: #2563eb;
+            --accent-dark: #1e40af;
+            --success: #10b981;
+            --card: #ffffff;
+            --bg: #f3f6fb;
+            --muted: #6b7280;
+        }
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--bg);
+            color: #0f172a
+        }
+
+        header.site-header {
+            background: linear-gradient(90deg, #d34bee 0%, #12f3d5 100%);
+            color: #fff;
+            padding: 28px 12px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(2, 6, 23, 0.08);
+        }
+
+        header.site-header h1 {
+            margin: 0;
+            font-size: 1.25rem;
+            letter-spacing: 0.6px
+        }
+
+        .container {
+            max-width: 980px;
+            margin: 20px auto;
+            padding: 18px;
+            border-radius: 12px;
+            background: var(--card);
+            box-shadow: 0 6px 20px rgba(2, 6, 23, 0.05)
+        }
+
+        form .row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap
+        }
+
+        label.input-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 6px
+        }
+
+        input[type=email] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #e6e9ef;
+            font-size: 0.98rem
+        }
+
+        h2.section-title {
+            margin: 18px 0 12px;
+            padding: 8px;
+            border-radius: 8px;
+            background: #eef2ff;
+            color: var(--accent-dark);
+            font-size: 1rem
+        }
+
+        .materia-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-radius: 8px;
+            background: #fbfdff;
+            border: 1px solid #eef2f7;
+            margin-bottom: 10px;
+            gap: 12px
+        }
+
+        .materia-label {
+            flex: 1;
+            font-weight: 600
+        }
+
+        .opciones-cursado {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap
+        }
+
+        .opciones-cursado select {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #e6e9ef;
+            font-size: 0.95rem
+        }
+
+        .botones {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 18px;
+            flex-wrap: wrap
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: #fff
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: #fff
+        }
+
+        #mensajeExito {
+            display: none;
+            margin-top: 14px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #ecfdf5;
+            color: #065f46;
+            text-align: center;
+            font-weight: 600
+        }
+
+        /* responsive */
+        @media (max-width:720px) {
+            .materia-box {
+                flex-direction: column;
+                align-items: flex-start
+            }
+
+            .opciones-cursado {
+                width: 100%
+            }
+
+            .botones {
+                flex-direction: column
+            }
+        }
+
+        /* small visual helpers */
+        .small {
+            font-size: 0.9rem;
+            color: var(--muted)
+        }
+
+        .link-file {
+            display: block;
+            margin-top: 10px;
+            text-align: right;
+            font-size: 0.9rem;
+            color: var(--muted)
+        }
+    </style>
+
+    <!-- html2canvas + jsPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <h1>TECNICATURA EN DESARROLLO DE SOFTWARE — Inscripción al Cursado</h1>
+    </header>
+
+    <main class="container">
+        <form id="formInscripcion" novalidate>
+            <div style="margin-bottom:10px">
+                <label class="input-label" for="correo">Correo electrónico del alumno</label>
+                <input type="email" id="correo" name="correo" placeholder="tu.email@ejemplo.com" required>
+                <div class="small">Usá el correo institucional o personal para identificar al alumno.</div>
+            </div>
+
+            <!-- PRIMER AÑO (materias 1-9) -->
+            <h2 class="section-title">Primer Año</h2>
+
+            <div class="materia-box">
+                <div class="materia-label">1. Sistemas Operativos</div>
+                <div class="opciones-cursado">
+                    <select name="materia1" aria-label="Sistemas Operativos">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">2. Comunicación</div>
+                <div class="opciones-cursado">
+                    <select name="materia2">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">3. Unidad de Definición Institucional I - Lengua</div>
+                <div class="opciones-cursado">
+                    <select name="materia3">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">4. Matemática</div>
+                <div class="opciones-cursado">
+                    <select name="materia4">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">5. Inglés Técnico I</div>
+                <div class="opciones-cursado">
+                    <select name="materia5">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">6. Administración</div>
+                <div class="opciones-cursado">
+                    <select name="materia6">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">7. Tecnologías de la Información</div>
+                <div class="opciones-cursado">
+                    <select name="materia7">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">8. Lógica y Estructura de Datos</div>
+                <div class="opciones-cursado">
+                    <select name="materia8">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">9. Ingeniería de Software I</div>
+                <div class="opciones-cursado">
+                    <select name="materia9">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- SEGUNDO AÑO (10-18) -->
+            <h2 class="section-title">Segundo Año</h2>
+
+            <div class="materia-box">
+                <div class="materia-label">10. Unidad de Definición Institucional II</div>
+                <div class="opciones-cursado">
+                    <select name="materia10">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">11. Problemáticas Socio Contemporáneas</div>
+                <div class="opciones-cursado">
+                    <select name="materia11">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">12. Inglés Técnico II</div>
+                <div class="opciones-cursado">
+                    <select name="materia12">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">13. Innovación y Desarrollo Emprendedor</div>
+                <div class="opciones-cursado">
+                    <select name="materia13">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">14. Estadística</div>
+                <div class="opciones-cursado">
+                    <select name="materia14">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">15. Programación I</div>
+                <div class="opciones-cursado">
+                    <select name="materia15">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">16. Ingeniería de Software II</div>
+                <div class="opciones-cursado">
+                    <select name="materia16">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">17. Base de Datos I</div>
+                <div class="opciones-cursado">
+                    <select name="materia17">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">18. Práctica Profesionalizante I</div>
+                <div class="opciones-cursado">
+                    <select name="materia18">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- TERCER AÑO (19-25) -->
+            <h2 class="section-title">Tercer Año</h2>
+
+            <div class="materia-box">
+                <div class="materia-label">19. Estrategia Empresarial</div>
+                <div class="opciones-cursado">
+                    <select name="materia19">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Presipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">20. Ética y Responsabilidad Social</div>
+                <div class="opciones-cursado">
+                    <select name="materia20">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">21. Sistema de Informacion para la Gestion de las Organizaciones</div>
+                <div class="opciones-cursado">
+                    <select name="materia21">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">22. Gestion Financiera</div>
+                <div class="opciones-cursado">
+                    <select name="materia22">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">23. Evaluacion y Gestion de Proyectos de Inversion</div>
+                <div class="opciones-cursado">
+                    <select name="materia23">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">24. Control de Gestion</div>
+                <div class="opciones-cursado">
+                    <select name="materia24">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">25. Práctica Profesionalizante II</div>
+                <div class="opciones-cursado">
+                    <select name="materia25">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="materia-box">
+                <div class="materia-label">26. Gestion de Seguridad, Salud Ocupacional y Medic. Ambiente</div>
+                <div class="opciones-cursado">
+                    <select name="materia26">
+                        <option value="no me inscribo" selected>No me inscribo</option>
+                        <option value="presencial">Presencial</option>
+                        <option value="semipresencial">Semipresencial</option>
+                        <option value="libre">Libre</option>
+                    </select>
+                </div>
+            </div>
+            <div class="botones">
+                <button type="submit" id="btnGuardar" class="btn btn-primary">Guardar Inscripción</button>
+                <button type="button" id="btnDescargarPDF" class="btn btn-secondary" disabled>Descargar PDF</button>
+                <button type="button" id="btnInicio" class="btn btn-success">Volver al Inicio Alumno</button>
+            </div>
+
+            <div id="mensajeExito">¡Felicidades! Tu inscripción fue un éxito.</div>
+
+            <!-- link to uploaded file (local path) per request -->
+            <a class="link-file" href="/mnt/data/WhatsApp Image 2025-11-17 at 20.10.57.jpeg" target="_blank"
+                rel="noopener">Ver/Descargar imagen subida</a>
+
+        </form>
+    </main>
+
+    <script>
+        // Utility to show messages
+        function showMessage(text, ok = true) {
+            const m = document.getElementById('mensajeExito');
+            m.textContent = text;
+            m.style.background = ok ? '#ecfdf5' : '#fee2e2';
+            m.style.color = ok ? '#065f46' : '#991b1b';
+            m.style.display = 'block';
+
+            setTimeout(() => m.style.display = 'none', 5000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('formInscripcion');
+            const btnGuardar = document.getElementById('btnGuardar');
+            const btnPDF = document.getElementById('btnDescargarPDF');
+            const btnInicio = document.getElementById('btnInicio');
+
+            btnPDF.disabled = true;
+            btnPDF.style.cursor = 'not-allowed';
+
+            // Volver al inicio
+            btnInicio.addEventListener('click', () => {
+                // Redirige a la página de inicio del alumno
+                window.location.href = 'inicio_alumno.php';
+            });
+
+            // Envío del formulario — robusto (lee texto, intenta JSON)
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                btnGuardar.disabled = true;
+                btnGuardar.textContent = 'Guardando...';
+
+                const formData = new FormData(form);
+
+                // Validación: al menos una materia distinta a "no me inscribo"
+                let alguna = false;
+                for (let i = 1; i <= 25; i++) {
+                    const v = formData.get('materia' + i);
+                    if (v && v.toLowerCase() !== 'no me inscribo' && v !== 'no') { alguna = true; break; }
+                }
+                if (!alguna) {
+                    alert('Debes seleccionar al menos una materia para inscribirte.');
+                    btnGuardar.disabled = false;
+                    btnGuardar.textContent = 'Guardar Inscripción';
+                    return;
+                }
+
+                try {
+                    const resp = await fetch('guardar_inscripcionesM.php', { method: 'POST', body: formData });
+                    const text = await resp.text();
+
+                    // intentar parsear JSON — si no es JSON mostramos texto (depuración)
+                    let data;
+                    try { data = JSON.parse(text); }
+                    catch (err) {
+                        console.error('Respuesta NO JSON:', text);
+                        alert('Error del servidor: la respuesta no fue JSON. Fijate la consola (F12).');
+                        btnGuardar.disabled = false;
+                        btnGuardar.textContent = 'Guardar Inscripción';
+                        return;
+                    }
+
+                    btnGuardar.disabled = false;
+                    btnGuardar.textContent = 'Guardar Inscripción';
+
+                    if (!data.success) {
+                        showMessage(data.message || 'Error al guardar.', false);
+                        return;
+                    }
+
+                    // Guardamos la última respuesta para usar al generar PDF
+                    window.ultimaInscripcionGuardada = data;
+
+                    showMessage('Inscripción guardada correctamente.');
+
+                    // Activar botón PDF
+                    btnPDF.disabled = false;
+                    btnPDF.style.cursor = 'pointer';
+                    btnPDF.style.background = getComputedStyle(document.documentElement).getPropertyValue('--accent-dark') || '#1e40af';
+                    btnPDF.style.color = '#fff';
+                } catch (err) {
+                    console.error(err);
+                    alert('Error en la conexión con el servidor.');
+                    btnGuardar.disabled = false;
+                    btnGuardar.textContent = 'Guardar Inscripción';
+                }
+            });
+
+            // Generar PDF - Versión Texto con jsPDF (igual que T. Software)
+            btnPDF.addEventListener('click', () => {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                // Configuración de estilo
+                doc.setFont("helvetica", "normal");
+
+                // Título
+                doc.setFontSize(18);
+                doc.text("Comprobante de Inscripción", 105, 20, { align: "center" });
+
+                doc.setFontSize(14);
+                // Ajustar título de carrera según corresponda
+                doc.text("Tecnicatura Superior en Gestión de las Organizaciones", 105, 30, { align: "center" });
+
+                // Datos del Alumno
+                const email = document.getElementById('correo').value;
+                const fecha = new Date().toLocaleDateString();
+
+                doc.setFontSize(12);
+                doc.text(`Alumno: ${email}`, 20, 50);
+                doc.text(`Fecha: ${fecha}`, 20, 60);
+
+                // Línea divisoria
+                doc.line(20, 65, 190, 65);
+
+                // Listado de Materias
+                doc.setFontSize(14);
+                doc.text("Materias Inscriptas:", 20, 80);
+
+                doc.setFontSize(11);
+                let y = 90;
+                let materiasInscriptasTotal = 0;
+
+                // Recorrer el formulario buscando títulos y materias
+                const formElements = document.getElementById('formInscripcion').children;
+                let currentYear = "";
+                let materiasDelAnio = [];
+
+                // Función auxiliar para imprimir bloque de año anterior
+                const printYearBlock = () => {
+                    if (materiasDelAnio.length > 0) {
+                        // Verificar espacio
+                        if (y > 270) { doc.addPage(); y = 20; }
+
+                        // Título Año
+                        doc.setFontSize(12);
+                        doc.setFont("helvetica", "bold");
+                        doc.text(currentYear, 20, y);
+                        y += 7;
+
+                        // Materias
+                        doc.setFont("helvetica", "normal");
+                        doc.setFontSize(11);
+                        materiasDelAnio.forEach(m => {
+                            if (y > 280) { doc.addPage(); y = 20; }
+                            doc.text(`• ${m.label}: ${m.condicion}`, 25, y);
+                            y += 7;
+                        });
+                        y += 5;
+                        materiasInscriptasTotal += materiasDelAnio.length;
+                        materiasDelAnio = [];
+                    }
+                };
+
+                for (let el of formElements) {
+                    // Si es un título de año (H2)
+                    if (el.tagName === 'H2' && el.classList.contains('section-title')) {
+                        // Imprimir el bloque del año anterior si existe
+                        printYearBlock();
+                        currentYear = el.innerText.toUpperCase();
+                    }
+                    // Si es una caja de materia
+                    else if (el.classList.contains('materia-box')) {
+                        const labelRaw = el.querySelector('.materia-label').innerText;
+                        // Quitar número inicial "1. ", "2. " para igualar estilo con TSoft
+                        const label = labelRaw.replace(/^\d+\.\s*/, '');
+
+                        const select = el.querySelector('select');
+                        if (select) {
+                            const val = select.value;
+                            if (val && val.toLowerCase() !== 'no me inscribo' && val !== 'no') {
+                                // Formatear condición
+                                const condicion = val.charAt(0).toUpperCase() + val.slice(1);
+                                materiasDelAnio.push({ label, condicion });
+                            }
+                        }
+                    }
+                }
+                // Imprimir el último bloque pendiente
+                printYearBlock();
+
+                if (materiasInscriptasTotal === 0) {
+                    doc.text("No se seleccionaron materias para inscripción.", 25, y);
+                }
+
+                // Pie de página
+                doc.setFontSize(10);
+                doc.text("Documento generado automáticamente.", 105, 290, { align: "center" });
+
+                doc.save(`inscripcion_gestion_${email}.pdf`);
+            });
+
+        });
+    </script>
+</body>
+
+</html>
